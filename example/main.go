@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	slicestream "gostream/slice"
+	slicestream "github.com/jaylee630/gostream/slice"
 )
 
 func main() {
