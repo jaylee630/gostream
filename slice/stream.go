@@ -26,6 +26,17 @@ type Stream[T any] interface {
 
 	// ToSlice 将流中的所有元素收集到一个切片中
 	ToSlice() []T
+
+	// Fuzzy 模糊搜索流中的元素，返回新的 Stream 实例。
+	// fuzzyFunc 函数，返回模糊字段和模糊值（目前只支持 string & Json Tag解析）
+	Fuzzy(fuzzyFunc func() (fuzzyFields []string, fuzzyValue string)) Stream[T]
+
+	// Sort 对流中的元素进行排序，返回新的 Stream 实例。
+	// sortFunc 排序函数
+	Sort(sortFunc func(T, T) bool) Stream[T]
+
+	// Pager 对流中的元素进行分页，返回新的切片和总量。
+	Pager(limit, offset *int64) (s []T, totalCount int64)
 }
 
 func Of[T any](elems ...T) Stream[T] {
